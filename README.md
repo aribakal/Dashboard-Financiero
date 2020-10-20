@@ -2,4 +2,4 @@
 
 ## Trabajo consulta base de datos
 
-### Fecha limite: Noviembre 30
+### Fecha limite: Noviembre 29
