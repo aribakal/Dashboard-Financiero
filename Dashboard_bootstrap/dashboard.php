@@ -1,3 +1,12 @@
+<?php
+$conexion = mysqli_connect("127.0.0.1", "root", "", "tesoreria");
+
+$consulta = mysqli_query($conexion, "SELECT sum(cd.total) from tesoreria.cobranzas_distribucion cd
+left join tesoreria.cobranzas_cabe cc on cc.idcobranza = cd.idcobranza
+where cd.idagrupamiento = 1 and month(cc.fecha) = 9 and year(cc.fecha) = 2020");
+
+$result = mysqli_fetch_array($consulta);
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -739,9 +748,9 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3><?php echo $result['sum(cd.total)'] ?></h3>
 
-                <p>New Orders</p>
+                <p>Total 9/2020</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -824,11 +833,11 @@
                   <!-- Morris chart - Sales -->
                   <div class="chart tab-pane active" id="revenue-chart"
                        style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>                         
+                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
                    </div>
                   <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>                         
-                  </div>  
+                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                  </div>
                 </div>
               </div><!-- /.card-body -->
             </div>
