@@ -8,6 +8,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Dashboard</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
   <!-- Tell the browser to be responsive to screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Font Awesome -->
@@ -125,9 +127,22 @@
 
     <?php
 
-        $aDatos = getDato( $conexion , 1 , 9 , 2020 );
+        $EneTot = getDato( $conexion , 1 , 1 , 2020 );
+        $FebTot = getDato( $conexion , 1 , 2 , 2020 );
+        $MarTot = getDato( $conexion , 1 , 3 , 2020 );
+        $AbrTot = getDato( $conexion , 1 , 4 , 2020 );
+        $MayTot = getDato( $conexion , 1 , 5 , 2020 );
+        $JunTot = getDato( $conexion , 1 , 6 , 2020 );
+        $JulTot = getDato( $conexion , 1 , 7 , 2020 );
+        $AgoTot = getDato( $conexion , 1 , 8 , 2020 );
+        $SepTot = getDato( $conexion , 1 , 9 , 2020 );
+        $OctTot = getDato( $conexion , 1 , 10 , 2020 );
+        $NovTot = getDato( $conexion , 1 , 11 , 2020 );
+        $DicTot = getDato( $conexion , 1 , 12 , 2020 );
+
 
     ?>
+
 
     <!-- Main content -->
     <section class="content">
@@ -137,48 +152,119 @@
           <div class="col-lg-3 col-12">
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>$<?php echo number_format( $aDatos["total"] , 0 , "," , "." ) ?></h3>
-                <h4>0 sells</h4>
+
+                <h3>$ <?php echo number_format( $EneTot["total"] , 0 , "," , "." ) ?></h3>
+                <h4><?php echo $EneTot["cantidad"] ?> sells</h4>
+                <br><?php $avg= $EneTot["total"] / $EneTot["cantidad"] ?>
+                <h6>$<?php echo number_format( $avg , 0 , "," , "." )?>/sell</h6>
                 <br>
-                <h6>$0.000,00 $/sell</h6>
+
+                <div class="btn-group" data-toggle="tab">
+                  <button type="button" class="btn btn-default btn-md" data-toggle="tab">All-time</button>
+                  <button type="button" class="btn btn-default btn-md" data-toggle="tab">Year</button>
+                  <button type="button" class="btn btn-default btn-md" data-toggle="tab">Month</button>
+                </div>
               </div>
             </div>
           </div>
           <!-- DATA A END -->
           <!-- Graph A START -->
           <div class="col-lg-9 col-12">
-            <div class="card card-info">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="far fa-chart-bar"></i>
-                  Sales
-                </h3>
-                <div class="card-tools">
-                  <div class="btn-group" data-toggle="tab">
-                    <button type="button" class="btn active btn-default btn-md active" data-toggle="tab">All-time</button>
-                    <button type="button" class="btn btn-default btn-md" data-toggle="tab">Year</button>
-                    <button type="button" class="btn btn-default btn-md" data-toggle="tab">Month</button>
-                  </div>
-                </div>
+            <div class="card card-info card-tabs">
+              <div class="card-header p-0 pt-1">
+                <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                  <li class="pt-2 px-3"><h3 class="card-title"><i class="far fa-chart-bar"></i> Sales</h3></li>
+                  <li class="nav-item">
+                    <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">All-time</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">Year</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">Month</a>
+                  </li>
+                </ul>
               </div>
-              <!-- /.card-header -->
               <div class="card-body">
-                <div class="tab-content p-0">
-                  <!-- Morris chart - Sales -->
-                  <div class="chart tab-pane active" id="revenue-chart"
-                       style="position: relative; height: 300px;">
-                      <canvas id="revenue-chart-canvas" height="300" style="height: 300px;"></canvas>
-                   </div>
-                  <div class="chart tab-pane" id="sales-chart" style="position: relative; height: 300px;">
-                    <canvas id="sales-chart-canvas" height="300" style="height: 300px;"></canvas>
+                <div class="tab-content" id="custom-tabs-two-tabContent">
+                  <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                    1
+                  </div>
+                  <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+                    <div class="graph">
+                      <!-- Graph A START -->
+                      <div id="Graph_A">
+                      <canvas id="Year" height="100"></canvas>
+                      <script>
+                        var ctx = document.getElementById('Year');
+                        var myChart = new Chart(ctx, {
+                          type: 'line',
+                          data: {
+                              labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+                              datasets: [{
+                                  label: 'Total recaudado',
+                                  backgroundColor: [
+                                      'rgba(0, 0, 0, 0)'
+                                  ],
+                                  borderColor: [
+                                      'rgba(0, 145, 171, 1)'
+                                  ],
+                                  pointBackgroundColor: [
+                                    'rgba(0, 145, 171, 1)',
+                                    'rgba(0, 145, 171, 1)',
+                                    'rgba(0, 145, 171, 1)',
+                                    'rgba(0, 145, 171, 1)',
+                                    'rgba(0, 145, 171, 1)',
+                                    'rgba(0, 145, 171, 1)',
+                                    'rgba(0, 145, 171, 1)',
+                                    'rgba(0, 145, 171, 1)',
+                                    'rgba(0, 145, 171, 1)',
+                                    'rgba(0, 145, 171, 1)',
+                                    'rgba(0, 145, 171, 1)',
+                                    'rgba(0, 145, 171, 1)'
+                                  ],
+                                  borderWidth: 2,
+                                  pointRadius: 3.5,
+                                  data: [<?php echo $EneTot["total"]?>,
+                                  <?php echo $EneTot["total"]?>,
+                                  <?php echo $FebTot["total"]?>,
+                                  <?php echo $MarTot["total"]?>,
+                                  <?php echo $AbrTot["total"]?>,
+                                  <?php echo $JunTot["total"]?>,
+                                  <?php echo $JulTot["total"]?>,
+                                  <?php echo $AgoTot["total"]?>,
+                                  <?php echo $SepTot["total"]?>,
+                                  <?php echo $OctTot["total"]?>,
+                                  <?php echo $NovTot["total"]?>,
+                                  <?php echo $DicTot["total"]?>]
+                              }]
+                            },
+
+                            options: {
+                              scales: {
+                                  yAxes: [{
+                                      ticks: {
+                                          beginAtZero: true
+                                      }
+                                  }]
+                              }
+                            }
+                        });
+                      </script>
+                      </div>
+                      <!-- Graph A END -->
+                  </div>
+                  </div>
+                  <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
+                    3
                   </div>
                 </div>
               </div>
-              <!-- /.card-body -->
+              <!-- /.card -->
             </div>
-            <!-- /.card-footer-->
-            </div>
+          </div>
             <!-- Graph A END -->
+
             </section>
             <!-- Graph B/C START -->
             <section class="content">
