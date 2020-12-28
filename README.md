@@ -1,5 +1,3 @@
 # Dashboard-Pestelli
 
-## Trabajo consulta base de datos
-
-### Fecha limite: Noviembre 29
+## Dashboard financiero para administración de ventas
