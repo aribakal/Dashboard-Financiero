@@ -278,12 +278,24 @@
                       Sales
                     </h3>
                     <div class="card-tools">
-                      <div class="btn-group" data-toggle="tab">
-                        <button type="button" class="btn btn-default btn-md active" data-toggle="tab">All-time</button>
-                        <button type="button" class="btn btn-default btn-md" data-toggle="tab">Year</button>
-                        <button type="button" class="btn btn-default btn-md" data-toggle="tab">Month</button>
+                      <div class="form-group">
+                          <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                              <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker1"/>
+                              <div class="input-group-append" data-target="#datetimepicker1" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <div class="input-group date" id="datetimepicker2" data-target-input="nearest">
+                              <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2"/>
+                              <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
+                                  <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                          </div>
                       </div>
                     </div>
+                  </script>
                   </div><!-- /.card-header -->
                   <div class="card-body">
                     <div class="tab-content p-0">
@@ -381,5 +393,22 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+
+<script>
+
+$(function () {
+    $('#datetimepicker1').datetimepicker({
+        viewMode: 'years',
+        format: 'MM/YYYY'
+    })
+    $('#datetimepicker2').datetimepicker({
+        viewMode: 'years',
+        format: 'MM/YYYY'
+    });
+
+});
+
+</script>
+
 </body>
 </html>
